@@ -70,40 +70,39 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         self.timer.fire()
     }
     
-    
     func invalidateTimer() {
         self.timer.invalidate()
         self.timer = nil
     }
     
-    
-    @IBAction func touchUpPlayPauseButton(_ sendre: UIButton) {
-        
-        print ("button tapped")
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
-    @IBAction func sliderValueChanged(_ sender: UISlider){
+
+    @IBAction func touchUpPlayPauseButton(_ sender: UIButton) {
+        //print ("button tapped")
         // print("slider value changed")
-        sendre.isSelected = !sendre.isSelected
         
+     sender.isSelected = !sender.isSelected
+    
         if sender.isSelected {
             self.player?.play()
         } else {
-            self.player?.payse()
+            self.player?.pause()
         }
-        if sender.isSelected{
+        
+        if sender.isSelected {
             self.makeAndFireTimer()
         } else {
-            self.invalidaterTimer()
+            self.invalidateTimer()
         }
     }
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         self.updateTimeLabelText(time: TimeInterval(sender.value))
         if sender.isTracking { return }
-        self.player.currentTime = TimeInterval(sendre.value)
+        self.player.currentTime = TimeInterval(sender.value)
     }
-    
-    
     
     //MARK: AVAudioPlayerDelegate
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
@@ -112,14 +111,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             print("오디오 플레이어 디코드 오류 발생")
             return
         }
+        
         let message: String
         message = "오디오 플레이어 오류 발생 \(error.localizedDescription)"
-        let alert: UIAlertControlle = UIAlertController(title: "알림", message: message, preferredStyle: UIAlertController.Style.alert)
+        let alert: UIAlertController = UIAlertController(title: "알림", message: message, preferredStyle: UIAlertController.Style.alert)
         
         let okAction: UIAlertAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default)
-        { (action: UIAertAction) -> Void in
+        { (action: UIAlertAction) -> Void in
             
-            self.dismiss(animater: true, completion: nil)
+         self.dismiss(animated: true, completion: nil)
         }
         
         alert.addAction(okAction)
@@ -130,6 +130,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         self.playPauseButton.isSelected = false
         self.progressSlider.value = 0
         self.updateTimeLabelText(time: 0)
+        self.invalidateTimer()
         
     }
-    
+}
