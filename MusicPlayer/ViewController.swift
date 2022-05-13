@@ -8,7 +8,6 @@
 import UIKit
 import AVFoundation
 
-
 class ViewController: UIViewController, AVAudioPlayerDelegate {
     //처음부터 다시
     
@@ -20,7 +19,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet var playPauseButton: UIButton!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var progressSlider: UISlider!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,9 +80,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     @IBAction func touchUpPlayPauseButton(_ sender: UIButton) {
         //print ("button tapped")
         // print("slider value changed")
-        
      sender.isSelected = !sender.isSelected
-    
         if sender.isSelected {
             self.player?.play()
         } else {
